@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantorio</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #app {
+            max-width: 600px;
+            margin: auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .messages {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+            background: #f9f9f9;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .message.sent {
+            text-align: right;
+            color: blue;
+        }
+        .message.received {
+            text-align: left;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Plantorio</h1>
+        <div class="messages">
+            <div 
+                v-for="(msg, index) in messages" 
+                :key="index" 
+                :class="['message', msg.type]"
+            >
+                {{ msg.text }}
+            </div>
+        </div>
+        <input v-model="inputMessage" @keyup.enter="sendMessage" placeholder="Type a message..." />
+        <button @click="sendMessage">Send</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
