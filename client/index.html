@@ -53,8 +53,9 @@
                 {{ msg.text }}
             </div>
         </div>
-        <input v-model="inputMessage" @keyup.enter="sendMessage" placeholder="Type a message..." />
-        <button @click="sendMessage">Send</button>
+
+        <!-- NOTE: use kebab-case -->
+        <message-input @send="sendMessage"></message-input>
     </div>
 
     <script type="module" src="app.js"></script>

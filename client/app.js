@@ -1,8 +1,9 @@
 const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
 
-createApp({
+import MessageInput from './messageinput.js';
+
+const app = createApp({
     setup() {
-        const inputMessage = ref('');
         const messages = ref([]);
         let socket = null;
 
@@ -26,11 +27,10 @@ createApp({
             };
         };
 
-        const sendMessage = () => {
+        const sendMessage = (msg) => {
             if (socket && socket.readyState === WebSocket.OPEN) {
-                socket.send(inputMessage.value);
-                addMessage(`You: ${inputMessage.value}`, 'sent');
-                inputMessage.value = '';
+                socket.send(msg);
+                addMessage(`You: ${msg}`, 'sent');
             } else {
                 alert('WebSocket is not connected.');
             }
@@ -38,7 +38,6 @@ createApp({
 
         const addMessage = (text, type) => {
             messages.value.push({ text, type });
-            // scroll to bottom
             setTimeout(() => {
                 const messagesDiv = document.querySelector('.messages');
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -56,9 +55,14 @@ createApp({
         });
 
         return {
-            inputMessage,
             messages,
             sendMessage
         };
     }
-}).mount('#app');
+});
+
+// register components globally
+app.component('counter', Counter);
+app.component('message-input', MessageInput);
+
+app.mount('#app');
