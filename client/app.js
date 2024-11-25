@@ -62,7 +62,6 @@ const app = createApp({
 });
 
 // register components globally
-app.component('counter', Counter);
 app.component('message-input', MessageInput);
 
 app.mount('#app');
